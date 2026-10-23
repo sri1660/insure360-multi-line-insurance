@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insure360 – Insurance Policy & Claims Management</title>
+  <meta name="description" content="Insure360 is a multi-line insurance policy and claims management system for Vehicle, Property, and Life insurance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     LOGIN PAGE
+     ============================================================ -->
+<div id="login-page" class="login-page">
+  <div class="login-bg-shapes">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+  </div>
+  <div class="login-container">
+    <div class="login-left">
+      <div class="login-brand">
+        <div class="brand-logo-large">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="12" fill="#0176d3"/>
+            <path d="M24 8L12 14v12c0 7.7 5.1 14.9 12 17 6.9-2.1 12-9.3 12-17V14L24 8z" fill="white" opacity="0.9"/>
+            <path d="M20 24l3 3 6-6" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-name-large">Insure<span>360</span></h1>
+          <p class="brand-tagline">Multi-Line Insurance Management</p>
+        </div>
+      </div>
+      <div class="login-hero-text">
+        <h2>Your Trusted Insurance Platform</h2>
+        <p>Manage policies, claims, and customers across Vehicle, Property, and Life insurance — all in one powerful platform.</p>
+        <div class="login-features">
+          <div class="login-feature-item"><span class="feature-dot"></span>Multi-line policy management</div>
+          <div class="login-feature-item"><span class="feature-dot"></span>Automated claim routing</div>
+          <div class="login-feature-item"><span class="feature-dot"></span>Real-time analytics & reports</div>
+          <div class="login-feature-item"><span class="feature-dot"></span>Customer 360° view</div>
+        </div>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <div class="login-card-header">
+          <h2>Welcome back</h2>
+          <p>Sign in to your Insure360 account</p>
+        </div>
+        <form id="login-form" class="login-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <div class="input-icon-wrap">
+              <i data-lucide="mail" class="input-icon"></i>
+              <input type="email" id="login-email" placeholder="admin@insure360.com" value="admin@insure360.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="input-icon-wrap">
+              <i data-lucide="lock" class="input-icon"></i>
+              <input type="password" id="login-password" placeholder="••••••••" value="admin123" autocomplete="current-password" />
+              <button type="button" class="eye-btn" onclick="togglePassword()" id="eye-btn">
+                <i data-lucide="eye" id="eye-icon"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-checkbox-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember-me" checked />
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div id="login-error" class="login-error hidden">Invalid email or password. Please try again.</div>
+          <button type="button" id="login-btn" class="btn btn-primary btn-full" onclick="handleLogin()">
+            <span id="login-btn-text">Sign In</span>
+            <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+          </button>
+          <div class="login-divider"><span>or</span></div>
+          <button type="button" class="btn btn-outline btn-full" onclick="demoLogin()">
+            <i data-lucide="zap" style="width:16px;height:16px;"></i>
+            Demo Login (Auto-fill & Sign In)
+          </button>
+        </form>
+        <div class="login-demo-creds">
+          <p><strong>Demo Credentials</strong></p>
+          <p>Email: admin@insure360.com</p>
+          <p>Password: admin123</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN APP SHELL (hidden until logged in)
+     ============================================================ -->
+<div id="app-shell" class="app-shell hidden">
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="12" fill="#0176d3"/>
+            <path d="M24 8L12 14v12c0 7.7 5.1 14.9 12 17 6.9-2.1 12-9.3 12-17V14L24 8z" fill="white" opacity="0.9"/>
+            <path d="M20 24l3 3 6-6" stroke="#0176d3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Insure<span class="brand-accent">360</span></span>
+          <span class="brand-sub">Insurance Platform</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle Sidebar">
+        <i data-lucide="panel-left-close" id="sidebar-toggle-icon"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main Menu</div>
+      <a href="#dashboard" class="nav-item" data-page="dashboard" onclick="navigate('dashboard')">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#customers" class="nav-item" data-page="customers" onclick="navigate('customers')">
+        <i data-lucide="users"></i>
+        <span>Customers</span>
+      </a>
+      <a href="#policies" class="nav-item" data-page="policies" onclick="navigate('policies')">
+        <i data-lucide="file-text"></i>
+        <span>Policies</span>
+      </a>
+      <a href="#quotes" class="nav-item" data-page="quotes" onclick="navigate('quotes')">
+        <i data-lucide="calculator"></i>
+        <span>Quotations</span>
+      </a>
+
+      <div class="nav-section-label">Claims</div>
+      <a href="#claims" class="nav-item" data-page="claims" onclick="navigate('claims')">
+        <i data-lucide="alert-circle"></i>
+        <span>Claims</span>
+        <span class="nav-badge" id="pending-badge">0</span>
+      </a>
+
+      <div class="nav-section-label">Analytics</div>
+      <a href="#reports" class="nav-item" data-page="reports" onclick="navigate('reports')">
+        <i data-lucide="bar-chart-2"></i>
+        <span>Reports</span>
+      </a>
+
+      <div class="nav-section-label">System</div>
+      <a href="#settings" class="nav-item" data-page="settings" onclick="navigate('settings')">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">A</div>
+        <div class="user-info">
+          <span class="user-name">Admin User</span>
+          <span class="user-role">System Administrator</span>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="handleLogout()" title="Logout">
+        <i data-lucide="log-out"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-content" id="main-content">
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="breadcrumb" id="breadcrumb">
+          <span class="breadcrumb-home"><i data-lucide="home" style="width:14px;height:14px;"></i></span>
+          <span class="breadcrumb-sep">/</span>
+          <span id="breadcrumb-current">Dashboard</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="global-search" placeholder="Search..." oninput="globalSearch(this.value)" />
+        </div>
+        <button class="topbar-icon-btn" title="Notifications" onclick="showNotifications()">
+          <i data-lucide="bell"></i>
+          <span class="notif-dot"></span>
+        </button>
+        <button class="topbar-icon-btn" title="Help">
+          <i data-lucide="help-circle"></i>
+        </button>
+        <div class="topbar-avatar" title="Admin User">A</div>
+      </div>
+    </header>
+
+    <!-- Dynamic Page Content -->
+    <main id="app-content" class="app-content">
+      <!-- Loaded dynamically by app.js -->
+    </main>
+  </div>
+</div>
+
+<!-- ============================================================
+     GLOBAL MODAL
+     ============================================================ -->
+<div id="global-modal" class="modal-overlay hidden" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header" id="modal-header">
+      <h3 id="modal-title">Modal Title</h3>
+      <button class="modal-close" onclick="closeModal(null, true)"><i data-lucide="x"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TOAST NOTIFICATION
+     ============================================================ -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data.js"></script>
+<script src="modules/dashboard.js"></script>
+<script src="modules/customers.js"></script>
+<script src="modules/policies.js"></script>
+<script src="modules/quotes.js"></script>
+<script src="modules/claims.js"></script>
+<script src="modules/claim-detail.js"></script>
+<script src="modules/verification.js"></script>
+<script src="modules/reports.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
